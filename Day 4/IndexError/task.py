@@ -7,3 +7,13 @@ states_of_america = ["Delaware", "Pennsylvania", "New Jersey", "Georgia", "Conne
                      "New Mexico", "Arizona", "Alaska", "Hawaii"]
 
 print(states_of_america)
+
+# Length of list with len function
+num_of_states = len(states_of_america)-1 # The length of list is -1 because the index starts from zero.
+print(len(states_of_america))
+
+# Nested lists: A list inside a list
+fruits = [ "Strawberries", "Nectarines", "Apples", "Grapes", "Peaches", "Cherries", "Pears"]
+vegetables = [ "Spinach", "Kale", "Tomatoes", "Celery", "Potatoes" ]
+dirty_dozen = [fruits, vegetables]
+print(dirty_dozen)

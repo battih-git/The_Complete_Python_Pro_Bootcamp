@@ -43,6 +43,6 @@ elif player_selection == paper and computer_selection == rock:
 elif player_selection == scissors and computer_selection == paper:
     print("You Win.")
 elif computer_selection == player_selection:
-    print("There is a tie.")
+    print("It's a draw.")
 else:
     print("You Loose.")

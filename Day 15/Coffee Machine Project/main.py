@@ -28,6 +28,7 @@ resources = {
     "water": 300,
     "milk": 200,
     "coffee": 100,
+    'money': 0
 }
 
 # TODO 1 Create a prompt to take user input for coffee
@@ -52,15 +53,14 @@ def print_resources(resource):
 # TODO 4 Check resource if it's sufficient for users order
 def check_resources(user_choice, resource):
     for key,value in user_choice.items():
-        if user_choice[key] > resource[key]:
-            print(f"Sorry there is not enough {resource[key]}")
+        if value > resource[key]:
+            print(f"Sorry there is not enough {key}")
             return False
-        else:
-            return True
+    return True
 
 
 # TODO 5 Process Coins
-def process_coins(coffee_type):
+def process_coins():
     print("Please insert coins.")
     quarters = int(input("How many quarters?: "))
     dimes = int(input("How many dimes?: "))
@@ -71,18 +71,40 @@ def process_coins(coffee_type):
 
 # TODO 6 Check transaction successfully
 def transaction_status(total, coffee_type):
-    if total < MENU[coffee_type]['cost']:
+    coffee_cost = MENU[coffee_type]['cost']
+    if total >= coffee_cost:
+        change = round((total - coffee_cost), 2)
+        resources['money'] += coffee_cost
+        print(f"Here's the ${change} in change.")
         return True
-    return False
+    else:
+        print("Sorry that's not enough money. Money refunded.")
+        return False
 
 # TODO 7 Make coffee
+def make_coffee(coffe_type):
+    global resources
+    coffee_ingredients = MENU[coffe_type]['ingredients']
+    for key, value in coffee_ingredients.items():
+        resources[key] -= value
+    print(f"Here is your {coffee} ☕Enjoy")
 
-coffee = user_input()
-user_preference = MENU[coffee]['ingredients']
-print(user_preference)
-enough_resources = check_resources(user_preference,resources)
-print(enough_resources)
-if enough_resources:
-    inserted_money = process_coins(co)
-    transaction_successful = transaction_status(pro)
-
+profit = 0
+is_on = True
+while is_on:
+    coffee = user_input()
+    if coffee == 'off':
+        print("Turning off the coffee machine. Goodbye!")
+        is_on = False
+    if coffee == 'report':
+        print_resources(resources)
+        continue
+    if coffee in MENU:
+        user_preference = MENU[coffee]['ingredients']
+        enough_resources = check_resources(user_preference,resources)
+        if enough_resources:
+            inserted_money = process_coins()
+            if transaction_status(inserted_money,coffee):
+                make_coffee(coffee)
+    else:
+        print("Invalid choice, please try again.")

@@ -38,7 +38,7 @@ def user_input():
     return coffee_type
 
 
-# TODO 2 Turn off coffee machine by entering off to the prompt
+
 # TODO 3 Create print report
 def print_resources(resource):
     for key,value in resource.items():
@@ -93,6 +93,9 @@ profit = 0
 is_on = True
 while is_on:
     coffee = user_input()
+
+# TODO 2 Turn off coffee machine by entering off to the prompt
+
     if coffee == 'off':
         print("Turning off the coffee machine. Goodbye!")
         is_on = False
